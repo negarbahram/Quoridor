@@ -104,9 +104,12 @@ int getPlayerType(int player) {
 
 void getPlayers() {
     gameState.playerCount = getPlayerCount(); // ask player to choose if it's a 2 player or a 4 player game
+    CloseWindow();
     gameState.playerType[0] = human; // first player is always a human
 
     // for each one of the other players ask the first player to choose if they are human or computer :
-    for (int player = 1; player < gameState.playerCount; player++)
+    for (int player = 1; player < gameState.playerCount; player++) {
         gameState.playerType[player] = getPlayerType(player + 1);
+        CloseWindow();
+    }
 }

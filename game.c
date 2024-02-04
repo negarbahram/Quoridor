@@ -24,6 +24,9 @@ void theGame() {
                 // chose the best move :
                 minimax(true, 4, -inF, inF, gameState.turnSw);
 
+                if (talismanType != nothing)
+                    talismanType = nothing;
+
                 switch (computerMove.type) {
                     case movePiece:
 
@@ -37,15 +40,6 @@ void theGame() {
                         break;
 
                     case putWall:
-                        for (int i = 0; i < gameState.size; i++) {
-                            for (int j = 0; j < gameState.size; j++) {
-                                for (int k = 0; k < gameState.size; k++)
-                                    printf("%d ", wallForEachCell[i][j][k]);
-                                printf("\n");
-                            }
-                            printf("\n");
-                        }
-                        printf("***************************\n");
                         blockCell(computerMove.wallPos); // block commute to its adjacent cells
                         gameState.playerWallList[player][gameState.playerUsedWallNo[player]] = computerMove.wallPos; // add the wall to its wall list
                         gameState.playerUsedWallNo[player]++; // increase its number of used walls by 1
@@ -65,6 +59,9 @@ void theGame() {
                 }
 
                 if (nextMove == 'q' || nextMove == 'Q') { // player want's to exit and save the game
+                    if (talismanType != nothing)
+                        talismanType = nothing;
+
                     FILE *outFile;
                     outFile = fopen("gameState.dat", "wb");
                     if (!outFile) {
@@ -78,15 +75,9 @@ void theGame() {
 
                 switch (nextMove) {
                     case ' ': // player wants to put a wall on the board
-                        for (int i = 0; i < gameState.size; i++) {
-                            for (int j = 0; j < gameState.size; j++) {
-                                for (int k = 0; k < gameState.size; k++)
-                                    printf("%d ", wallForEachCell[i][j][k]);
-                                printf("\n");
-                            }
-                            printf("\n");
-                        }
-                        printf("***************************\n");
+                        if (talismanType != nothing)
+                            talismanType = nothing;
+
                         if (gameState.playerUsedWallNo[player] >= gameState.playerWallNo[player])
                             invalidInput = 1; // the player has no remaining walls
                         else {
@@ -119,6 +110,9 @@ void theGame() {
                     case 's':
                     case 'A':
                     case 'a':
+                        if (talismanType != nothing)
+                            talismanType = nothing;
+
                         nextMoveProcess(&gameState.playerPos[player]);
                         break;
                 }
@@ -128,7 +122,5 @@ void theGame() {
 
         drawBoard();
     }
-
-    CloseWindow();
 
 }

@@ -10,6 +10,48 @@ void drawInvalid() {
     DrawText("Invalid Input!", textBoxSize.x + 22, textBoxSize.y + 12, 25, WHITE);
 }
 
+void talismanMessage() {
+    switch (talismanType) {
+        case removeAllWalls:
+            talismanType = removeAllWalls;
+            Rectangle textBoxSize0 = {235, 425, 330, 50};
+            DrawRectangleRec(textBoxSize0, ColorAlpha(PURPLE, 0.8));
+            DrawText("All Walls Are Removed!", textBoxSize0.x + 27, textBoxSize0.y + 12, 25, WHITE);
+            break;
+
+        case decreaseWallNo:
+            talismanType = decreaseWallNo;
+            Rectangle textBoxSize1 = {110, 425, 580, 50};
+            DrawRectangleRec(textBoxSize1, ColorAlpha(PURPLE, 0.8));
+            DrawText(TextFormat("Player's Remaining Walls Is Decreased By %d!", value), textBoxSize1.x + 17, textBoxSize1.y + 12, 25, WHITE);
+            break;
+
+        case blockTurn:
+            talismanType = blockTurn;
+            Rectangle textBoxSize2 = {145, 425, 510, 50};
+            DrawRectangleRec(textBoxSize2, ColorAlpha(PURPLE, 0.8));
+            if (value == 2)
+                DrawText("Player's Turn Is Blocked For 2 Turns!", textBoxSize2.x + 12, textBoxSize2.y + 12, 25, WHITE);
+            else
+                DrawText("Player's Turn Is Blocked For 1 Turn!", textBoxSize2.x + 22, textBoxSize2.y + 12, 25, WHITE);
+            break;
+
+        case increaseWallNo:
+            talismanType = increaseWallNo;
+            Rectangle textBoxSize3 = {110, 425, 580, 50};
+            DrawRectangleRec(textBoxSize3, ColorAlpha(PURPLE, 0.8));
+            DrawText(TextFormat("Player's Remaining Walls Is Increased By %d!", value), textBoxSize3.x + 17, textBoxSize3.y + 12, 25, WHITE);
+            break;
+
+        case specialIncreaseWallNo:
+            talismanType = specialIncreaseWallNo;
+            Rectangle textBoxSize4 = {110, 410, 580, 80};
+            DrawRectangleRec(textBoxSize4, ColorAlpha(PURPLE, 0.8));
+            DrawText(TextFormat("Player's Remaining Walls Is Increased By %d\n\n  And Other Player's Is Decreased By %d!", value, value), textBoxSize4.x + 22, textBoxSize4.y + 12, 25, WHITE);
+            break;
+    }
+}
+
 void drawBoard() {
 
     BeginDrawing();
@@ -74,6 +116,9 @@ void drawBoard() {
 
     if (invalidInput)
         drawInvalid();
+
+    if (talismanType != nothing)
+        talismanMessage();
 
     EndDrawing();
 }

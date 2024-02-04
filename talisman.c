@@ -1,3 +1,7 @@
+enum {removeAllWalls = 0, decreaseWallNo, blockTurn, increaseWallNo, specialIncreaseWallNo, nothing} talismanType = nothing;
+int values[5] = {2, 3, 5};
+int indx = 0, value;
+
 void generateTalismanPosition() {
     time_t t;
     srand((unsigned) time(&t));
@@ -21,13 +25,9 @@ void generateTalismanPosition() {
 
 void applyTalisman() {
 
-    int values[5] = {2, 3, 5};
-    int indx = 0, value;
-
     time_t t;
     srand((unsigned) time(&t));
 
-    enum {removeAllWalls = 0, decreaseWallNo, blockTurn, increaseWallNo, specialIncreaseWallNo} talismanType;
     talismanType = rand() % 5; // talisman type can be any of 5 options at the top
 
     switch (talismanType) {

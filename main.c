@@ -32,8 +32,10 @@ int main() {
 
     if (inFile) {
         fread(&gameState, sizeof(gameState), 1, inFile); // read previous game from the file
-        if (!feof(inFile)) // check if previous game had existed
-            newGame = getNewGame(); // ask player if they want to start a new game or continue the previous one
+        if (!feof(inFile)) { // check if previous game had existed
+            newGame = getNewGame();
+            CloseWindow();
+        } // ask player if they want to start a new game or continue the previous one
         else
             newGame = 1; // there was no previous game saved, so player has to start a new one
         fclose(inFile);
@@ -53,12 +55,14 @@ int main() {
         case true :
             getPlayers(); // get the number of players and whether they are computer or human
             getStartingData();
+            CloseWindow();
             break;
     }
 
-    theGame();
+    theGame(); CloseWindow();
 
-    ending();
+    if (whoWins())
+        ending();
 
     return 0;
 }
